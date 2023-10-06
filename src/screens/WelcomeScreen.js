@@ -1,10 +1,12 @@
 import React, { useEffect } from 'react'
 import { View, Text, Image } from 'react-native'
 import { StatusBar } from 'expo-status-bar'
+import { useNavigation } from '@react-navigation/native'
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen'
 import Animated, { useSharedValue, withSpring } from 'react-native-reanimated'
 
 const WelcomeScreen = () => {
+  const navigation = useNavigation()
   const ringOnePadding = useSharedValue(0)
   const ringTwoPadding = useSharedValue(0)
 
@@ -21,6 +23,9 @@ const WelcomeScreen = () => {
       ringTwoPadding.value = withSpring(ringTwoPadding.value + hp(5.5))
       , 300
     )
+
+    // Navigate to Home Screen
+    setTimeout(() => navigation.navigate('Home'), 2500)
   }, [])
 
 
