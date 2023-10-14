@@ -19,7 +19,13 @@ const RecipeDetailScreen = (props) => {
     const [loading, setLoading] = useState(true)
     const [meal, setMeal] = useState(null)
     const [dataIndexes, setDataIndexes] = useState([])
-
+    
+    // Youtube frame render 
+    const [isReadyForRender, setIsReadyForRender] = useState(false);
+    function onReady() {
+        setIsReadyForRender(true)
+    }
+  
     useEffect(() => {
 
         const getMealData = async (id)=>{
@@ -227,6 +233,9 @@ const RecipeDetailScreen = (props) => {
                                 <YouTubeIframe
                                     videoId={getYoutubeVideoId(meal.strYoutube)}
                                     height={hp(30)}
+                                    onReady={onReady}
+                                    webViewStyle={{opacity: 0.99, display: isReadyForRender ? 'flex' : 'none'}}
+                                    webViewProps={{androidLayerType: isReadyForRender ? 'hardware' : 'software'}}
                                 />
                             </View>
                         </Animated.View>
