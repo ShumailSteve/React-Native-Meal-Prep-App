@@ -1,4 +1,4 @@
-import { View, Text, ScrollView, Image, TextInput } from 'react-native'
+import { View, Text, ScrollView, Image, TextInput, TouchableOpacity } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { StatusBar } from 'expo-status-bar'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen'
@@ -12,7 +12,24 @@ const HomeScreen = () => {
   const [activeCategory, setActiveCategory] = useState('Beef')
   const [categories, setCategories] = useState([])
   const [meals, setMeals] = useState([])
+  const [searchKeyword, setSearchKeyword] = useState('')
 
+  const filterData = () => {
+    console.log({searchKeyword})
+    let filteredData = meals.filter(item => item.strMeal.toLowerCase().includes(searchKeyword.toLowerCase()))
+    console.log({filteredData})
+    setMeals(filteredData)
+  }
+
+  const handleKeywordChange = (keyword) => {
+    console.log({keyword})
+    setSearchKeyword(keyword)
+    if(!keyword) {
+      getMealsByCategory(activeCategory)
+      return
+    }    
+  }
+  
   const getCategories = async () => {
     try {
       const res = await axios.get('https://www.themealdb.com/api/json/v1/1/categories.php')
@@ -26,6 +43,7 @@ const HomeScreen = () => {
   }
 
   const getMealsByCategory = async (category="Beef") => {
+    setSearchKeyword('')
     try {
       const res = await axios.get(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`)
       if(res && res.data) {
@@ -70,24 +88,29 @@ const HomeScreen = () => {
         <View className="mx-4 space-y-2 mb-2">
           <Text className="text-neutral-600" style={{ fontSize: hp(2) }}>Hello, Steve</Text>
           <Text className="font-semibold text-neutral-600" style={{ fontSize: hp(3.8) }}>
-            Make your own food,
+            Prepare your own meals,
           </Text>
           <Text className="font-semibold text-neutral-600" style={{ fontSize: hp(3.8) }}>
-            stay at <Text className='text-amber-400'>home</Text>
+            stay at <Text className='text-green-500'>home</Text>
           </Text>
         </View>
 
         {/* Search Bar */}
         <View className="mx-4 flex-row items-center rounded-full bg-black/5 p-[6px]">
           <TextInput
-            placeholder='Search any recipe'
-            placeholderTextColor={'gray'}
             style={{ fontSize: hp(1.7) }}
             className="flex-1 text-base mb-1 pl-3 tracking-wider"
+            placeholder='Search any recipe'
+            placeholderTextColor={'gray'}
+            value={searchKeyword}
+            onChangeText={text => handleKeywordChange(text)}
           />
-          <View className="bg-white rounded-full p-3">
+          <TouchableOpacity
+            className="bg-white rounded-full p-3"
+            onPress={() => filterData()}
+           >
             <MagnifyingGlassIcon size={hp(2.5)} strokeWidth={3} color="gray" />
-          </View>
+          </TouchableOpacity>
         </View>
 
         {/* Categories */}

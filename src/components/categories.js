@@ -17,7 +17,7 @@ const Categories = ({ categories,  activeCategory, setActiveCategory }) => {
         >
             {categories.map((category, index) => {
                 let isActive = category.strCategory == activeCategory
-                let activeButtonClass = isActive ? 'bg-amber-400' : 'bg-black/10';
+                let activeButtonClass = isActive ? 'bg-green-400' : 'bg-black/10';
                 return (
                     <TouchableOpacity
                         key={index}

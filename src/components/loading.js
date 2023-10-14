@@ -4,7 +4,7 @@ import React from 'react'
 const Loading = (props) => {
   return (
     <View className="flex-1 flex justify-center items-center">
-      <ActivityIndicator {...props} color='#fcd34d' />
+      <ActivityIndicator {...props} color='#22c55e' />
     </View>
   )
 }

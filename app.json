@@ -1,30 +1,33 @@
 {
   "expo": {
-    "name": "rn-food-app",
+    "name": "Prepify",
     "slug": "rn-food-app",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/images/welcome.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#22c55e"
     },
     "assetBundlePatterns": [
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.shumailsteve.rnfoodapp"
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
-      }
+        "foregroundImage": "./assets/images/welcome.png",
+        "backgroundColor": "#FFFFFF"
+      },
+      "package": "com.shumailsteve.rnfoodapp"
     },
-    "web": {
-      "favicon": "./assets/favicon.png"
+    "web": {},
+    "extra": {
+      "eas": {
+        "projectId": "0709c340-4372-46e3-a1ba-65d0feaa71cd"
+      }
     }
   }
 }

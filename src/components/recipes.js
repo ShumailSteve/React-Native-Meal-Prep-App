@@ -6,6 +6,7 @@ import MasonryList from '@react-native-seoul/masonry-list'
 import Animated, { FadeInDown } from 'react-native-reanimated'
 
 import Loading from './loading'
+import { CachedImage } from '../helpers/cachedImage';
 // import { mealData } from '../constants'
 
 const Recipes = ({ categories, meals }) => {
@@ -36,22 +37,32 @@ const Recipes = ({ categories, meals }) => {
     )
 }
 
-const RecipeCard = ({ item, index }) => {
+const RecipeCard = ({ item, index, navigation }) => {
     let isEven = index % 2 == 0
     return (
         <Animated.View entering={FadeInDown.delay(index*100).duration(600).springify().damping()}>
             <Pressable
                 style={{ width: '100%', paddingLeft: isEven ? 0: 8, paddingRight: isEven ? 8 : 0}}
                 className="flex justify-center mb-4 space-y-1"
+                onPress = {() => navigation.push('RecipeDetails', {...item})}
             >
-                <Image 
-                    source={{ uri: item.strMealThumb }}
-                    style={{ width: '100%', height: index %3 == 0 ? hp(25) : hp(35), borderRadius: 35}}
-                    className="bg-black/5"
-                />
+                <Animated.View sharedTransitionTag={item.strMeal}>
+                    <Image 
+                        source={{ uri: item.strMealThumb }}
+                        className="bg-black/5"
+                        style={{ width: '100%', height: index %3 == 0 ? hp(25) : hp(35), borderRadius: 35}}
+                        
+                    />
+                </Animated.View>
+                {/* <CachedImage
+                     uri= {item.strMealThumb}
+                     style={{width: '100%', height: index%3==0? hp(25): hp(35), borderRadius: 35}}
+                     className="bg-black/5"
+                     sharedTransitionTag={item.strMeal}
+                /> */}
                 <Text className="font-semibold ml-2 text-neutral-600" style={{ fontSize: hp(1.8)}}>
                     {
-                        item.strMeal.length > 20 ? item.strMeal.slice(0,20)+'...' : item.strMeal
+                        item?.strMeal.length > 20 ? item.strMeal.slice(0,20)+'...' : item.strMeal
                     }
                 </Text>
             </Pressable>

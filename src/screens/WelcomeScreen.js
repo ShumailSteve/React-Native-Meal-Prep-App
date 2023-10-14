@@ -24,13 +24,12 @@ const WelcomeScreen = () => {
       , 300
     )
 
-    // Navigate to Home Screen
-    setTimeout(() => navigation.navigate('Home'), 2500)
+    // Navigate to Login Screen
+    setTimeout(() => navigation.replace('Login'), 2500)
   }, [])
 
-
   return (
-    <View className="flex-1 justify-center items-center space-y-10 bg-amber-500">
+    <View className="flex-1 justify-center items-center space-y-10 bg-green-500">
       <StatusBar style='light' />
 
       {/* logo image */}
